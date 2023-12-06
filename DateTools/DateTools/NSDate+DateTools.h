@@ -52,6 +52,7 @@ NSLocalizedStringFromTableInBundle(key, @"DateTools", [NSBundle bundleWithPath:[
 - (NSInteger)era;
 - (NSInteger)year;
 - (NSInteger)month;
+- (NSInteger)month:(NSCalendar*)calendar;
 - (NSInteger)day;
 - (NSInteger)hour;
 - (NSInteger)minute;
@@ -67,10 +68,13 @@ NSLocalizedStringFromTableInBundle(key, @"DateTools", [NSBundle bundleWithPath:[
 -(NSInteger)daysInYear;
 -(BOOL)isInLeapYear;
 - (BOOL)isToday;
+- (BOOL)isToday:(NSCalendar*)calendar;
 - (BOOL)isTomorrow;
 -(BOOL)isYesterday;
+-(BOOL)isYesterday:(NSCalendar*)calendar;
 - (BOOL)isWeekend;
 -(BOOL)isSameDay:(NSDate *)date;
+-(BOOL)isSameDay:(NSDate *)date calendar:(NSCalendar*)calendar;
 + (BOOL)isSameDay:(NSDate *)date asDate:(NSDate *)compareDate;
 
 #pragma mark - Date Components With Calendar
@@ -104,6 +108,7 @@ NSLocalizedStringFromTableInBundle(key, @"DateTools", [NSBundle bundleWithPath:[
 - (NSDate *)dateByAddingMonths:(NSInteger)months;
 - (NSDate *)dateByAddingWeeks:(NSInteger)weeks;
 - (NSDate *)dateByAddingDays:(NSInteger)days;
+- (NSDate *)dateByAddingDays:(NSInteger)days calendar:(NSCalendar*)calendar;
 - (NSDate *)dateByAddingHours:(NSInteger)hours;
 - (NSDate *)dateByAddingMinutes:(NSInteger)minutes;
 - (NSDate *)dateByAddingSeconds:(NSInteger)seconds;
@@ -111,6 +116,7 @@ NSLocalizedStringFromTableInBundle(key, @"DateTools", [NSBundle bundleWithPath:[
 - (NSDate *)dateBySubtractingYears:(NSInteger)years;
 - (NSDate *)dateBySubtractingMonths:(NSInteger)months;
 - (NSDate *)dateBySubtractingWeeks:(NSInteger)weeks;
+- (NSDate *)dateBySubtractingWeeks:(NSInteger)weeks calendar:(NSCalendar*)calendar;
 - (NSDate *)dateBySubtractingDays:(NSInteger)days;
 - (NSDate *)dateBySubtractingHours:(NSInteger)hours;
 - (NSDate *)dateBySubtractingMinutes:(NSInteger)minutes;
@@ -152,6 +158,7 @@ NSLocalizedStringFromTableInBundle(key, @"DateTools", [NSBundle bundleWithPath:[
 -(NSInteger)monthsEarlierThan:(NSDate *)date;
 -(NSInteger)weeksEarlierThan:(NSDate *)date;
 -(NSInteger)daysEarlierThan:(NSDate *)date;
+-(NSInteger)daysEarlierThan:(NSDate *)date calendar:(NSCalendar*)calendar;
 -(double)hoursEarlierThan:(NSDate *)date;
 -(double)minutesEarlierThan:(NSDate *)date;
 -(double)secondsEarlierThan:(NSDate *)date;

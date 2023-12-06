@@ -342,6 +342,10 @@ static NSCalendar *implicitCalendar = nil;
     return [self componentForDate:self type:DTDateComponentMonth calendar:nil];
 }
 
+- (NSInteger)month:(NSCalendar*)calendar {
+  return [self componentForDate:self type:DTDateComponentMonth calendar:calendar];
+}
+
 /**
  *  Returns the day of the month of the receiver.
  *
@@ -499,6 +503,16 @@ static NSCalendar *implicitCalendar = nil;
 	return [today isEqualToDate:otherDate];
 }
 
+- (BOOL)isToday:(NSCalendar*)cal {
+  NSDateComponents *components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:[NSDate date]];
+  NSDate *today = [cal dateFromComponents:components];
+  components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:self];
+  NSDate *otherDate = [cal dateFromComponents:components];
+
+  return [today isEqualToDate:otherDate];
+}
+
+
 - (BOOL)isTomorrow {
 	NSCalendar *cal = [NSCalendar currentCalendar];
 	NSDateComponents *components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:[[NSDate date] dateByAddingDays:1]];
@@ -517,6 +531,15 @@ static NSCalendar *implicitCalendar = nil;
 	NSDate *otherDate = [cal dateFromComponents:components];
     
 	return [tomorrow isEqualToDate:otherDate];
+}
+
+-(BOOL)isYesterday:(NSCalendar*)cal{
+  NSDateComponents *components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:[[NSDate date] dateBySubtractingDays:1]];
+  NSDate *tomorrow = [cal dateFromComponents:components];
+  components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:self];
+  NSDate *otherDate = [cal dateFromComponents:components];
+    
+  return [tomorrow isEqualToDate:otherDate];
 }
 
 - (BOOL)isWeekend {
@@ -545,6 +568,10 @@ static NSCalendar *implicitCalendar = nil;
     return [NSDate isSameDay:self asDate:date];
 }
 
+-(BOOL)isSameDay:(NSDate *)date calendar:(NSCalendar*)calendar {
+  return [NSDate isSameDay:self asDate:date calendar:calendar];
+}
+
 /**
  *  Returns whether two dates fall on the same day.
  *
@@ -556,6 +583,17 @@ static NSCalendar *implicitCalendar = nil;
 {
     NSCalendar *cal = [NSCalendar currentCalendar];
     
+    NSDateComponents *components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:date];
+    NSDate *dateOne = [cal dateFromComponents:components];
+    
+    components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:compareDate];
+    NSDate *dateTwo = [cal dateFromComponents:components];
+    
+    return [dateOne isEqualToDate:dateTwo];
+}
+
++ (BOOL)isSameDay:(NSDate *)date asDate:(NSDate *)compareDate calendar:(NSCalendar*)cal
+{
     NSDateComponents *components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:date];
     NSDate *dateOne = [cal dateFromComponents:components];
     
@@ -890,6 +928,13 @@ static NSCalendar *implicitCalendar = nil;
     return [calendar dateByAddingComponents:components toDate:self options:0];
 }
 
+- (NSDate *)dateByAddingDays:(NSInteger)days calendar:(NSCalendar*)calendar {
+  NSDateComponents *components = [[NSDateComponents alloc] init];
+  [components setDay:days];
+  
+  return [calendar dateByAddingComponents:components toDate:self options:0];
+}
+
 /**
  *  Returns a date representing the receivers date shifted later by the provided number of hours.
  *
@@ -979,6 +1024,13 @@ static NSCalendar *implicitCalendar = nil;
     [components setWeekOfYear:-1*weeks];
     
     return [calendar dateByAddingComponents:components toDate:self options:0];
+}
+
+- (NSDate *)dateBySubtractingWeeks:(NSInteger)weeks calendar:(NSCalendar*)calendar {
+  NSDateComponents *components = [[NSDateComponents alloc] init];
+  [components setWeekOfYear:-1*weeks];
+  
+  return [calendar dateByAddingComponents:components toDate:self options:0];
 }
 
 /**
@@ -1391,6 +1443,10 @@ static NSCalendar *implicitCalendar = nil;
  */
 -(NSInteger)daysEarlierThan:(NSDate *)date{
     return ABS(MIN([self daysFrom:date], 0));
+}
+
+-(NSInteger)daysEarlierThan:(NSDate *)date calendar:(NSCalendar*)calendar {
+  return ABS(MIN([self daysFrom:date calendar:calendar], 0));
 }
 
 /**
