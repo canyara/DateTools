@@ -115,9 +115,11 @@ NSLocalizedStringFromTableInBundle(key, @"DateTools", [NSBundle bundleWithPath:[
 #pragma mark Date By Subtracting
 - (NSDate *)dateBySubtractingYears:(NSInteger)years;
 - (NSDate *)dateBySubtractingMonths:(NSInteger)months;
+- (NSDate *)dateBySubtractingMonths:(NSInteger)months calendar:(NSCalendar*)calendar;
 - (NSDate *)dateBySubtractingWeeks:(NSInteger)weeks;
 - (NSDate *)dateBySubtractingWeeks:(NSInteger)weeks calendar:(NSCalendar*)calendar;
 - (NSDate *)dateBySubtractingDays:(NSInteger)days;
+- (NSDate *)dateBySubtractingDays:(NSInteger)days calendar:(NSCalendar*)calendar;
 - (NSDate *)dateBySubtractingHours:(NSInteger)hours;
 - (NSDate *)dateBySubtractingMinutes:(NSInteger)minutes;
 - (NSDate *)dateBySubtractingSeconds:(NSInteger)seconds;

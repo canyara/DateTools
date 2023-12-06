@@ -1011,6 +1011,13 @@ static NSCalendar *implicitCalendar = nil;
     return [calendar dateByAddingComponents:components toDate:self options:0];
 }
 
+- (NSDate *)dateBySubtractingMonths:(NSInteger)months calendar:(NSCalendar*)calendar {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setMonth:-1*months];
+    
+    return [calendar dateByAddingComponents:components toDate:self options:0];
+}
+
 /**
  *  Returns a date representing the receivers date shifted earlier by the provided number of weeks.
  *
@@ -1042,6 +1049,13 @@ static NSCalendar *implicitCalendar = nil;
  */
 - (NSDate *)dateBySubtractingDays:(NSInteger)days{
     NSCalendar *calendar = [[self class] implicitCalendar];
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    [components setDay:-1*days];
+    
+    return [calendar dateByAddingComponents:components toDate:self options:0];
+}
+
+- (NSDate *)dateBySubtractingDays:(NSInteger)days calendar:(NSCalendar*)calendar {
     NSDateComponents *components = [[NSDateComponents alloc] init];
     [components setDay:-1*days];
     
