@@ -514,13 +514,16 @@ static NSCalendar *implicitCalendar = nil;
 
 
 - (BOOL)isTomorrow {
-	NSCalendar *cal = [NSCalendar currentCalendar];
-	NSDateComponents *components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:[[NSDate date] dateByAddingDays:1]];
-	NSDate *tomorrow = [cal dateFromComponents:components];
-	components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:self];
-	NSDate *otherDate = [cal dateFromComponents:components];
+    return [self isTomorrow:[NSCalendar currentCalendar]];
+}
+
+- (BOOL)isTomorrow:(NSCalendar*)cal {
+    NSDateComponents *components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:[[NSDate date] dateByAddingDays:1]];
+    NSDate *tomorrow = [cal dateFromComponents:components];
+    components = [cal components:(NSCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:self];
+    NSDate *otherDate = [cal dateFromComponents:components];
     
-	return [tomorrow isEqualToDate:otherDate];
+    return [tomorrow isEqualToDate:otherDate];
 }
 
 -(BOOL)isYesterday{
