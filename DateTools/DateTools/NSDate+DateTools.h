@@ -70,6 +70,7 @@ NSLocalizedStringFromTableInBundle(key, @"DateTools", [NSBundle bundleWithPath:[
 - (BOOL)isToday;
 - (BOOL)isToday:(NSCalendar*)calendar;
 - (BOOL)isTomorrow;
+- (BOOL)isTomorrow:(NSCalendar*)calendar;
 -(BOOL)isYesterday;
 -(BOOL)isYesterday:(NSCalendar*)calendar;
 - (BOOL)isWeekend;
